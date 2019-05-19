@@ -1,0 +1,11 @@
+#!/home/amir/miniconda3/envs/cp/bin/python
+import sys
+#sys.path.append('/home/amir/miniconda3/envs/cp/lib/python3.7/site-packages/crypto_summoner')
+from crypto_summoner.crypto_summoner import *
+
+
+def main():
+    CryptoSummoner.status()
+
+if __name__ == "__main__":
+    main()
