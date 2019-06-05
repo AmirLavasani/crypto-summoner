@@ -21,7 +21,8 @@ setup(
             'crypto_summoner.exchange_wrappers', 
             'crypto_summoner.inteli_logger',
             'crypto_summoner.exchange_factory',
-            'crypto_summoner.config'],
+            'crypto_summoner.config',
+            'crypto_summoner.symbols_interface'],
     #ext_modules=extensions,
     classifiers=classifiers_list,
     scripts=['bin/crypto_summond']
