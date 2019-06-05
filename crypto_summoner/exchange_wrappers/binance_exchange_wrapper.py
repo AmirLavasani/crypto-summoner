@@ -6,9 +6,12 @@
 """
 
 import asyncio
+
+from binance.client import Client
+
 from crypto_summoner.exchange_wrappers.iexchange_wrapper import IExchangeWrapper
 from crypto_summoner.exchange_wrappers.exchange_wrapper_registery import ExchangeWrapperRegistery
-from binance.client import Client
+from crypto_summoner.symbols_interface.binance_symbols import BinanceSymbols
 
 
 @ExchangeWrapperRegistery.register_exchange
@@ -24,7 +27,8 @@ class BinanceExchangeWrapper(IExchangeWrapper):
 
     Attributes:
         _credential (dic): Exchange credentials dictionary. e.g. {'API_KEY':'', 'API_SECRET': ''}
-    
+        _symobl_interface (SymbolInterface): a SymbolInterface
+                concrete implementation.
     Methods:       
         get_deposit_address(self, symbol): For a specified symbol, this function return the exchange deposit address.
         withdraw(self, symbol, from_addr, to_addr, amount): It send the exchange a request for withdrawal.
@@ -40,13 +44,15 @@ class BinanceExchangeWrapper(IExchangeWrapper):
             credential (str): The exchange credentials dictionary.
         
         Raises:
+            ValueError: If client_object is not an instance of binance.client Client object.
             ValueError: If credential_dic does not include 'API_KEY' and 'API_SECRET'
+            ValueError: if BinanceSymbols not validated.
+
         """
         IExchangeWrapper.__init__(self, credential_dic)
 
-        if not credential_dic.get('API_KEY', None) or not credential_dic.get('API_SECRET', None):
-            raise ValueError("credential_dic is not in binance credential dictionary format. missing key API_KEY or API_SECRET")
         self.client = Client(credential_dic.get('API_KEY'), credential_dic.get('API_SECRET'))
+        self._symobl_interface = BinanceSymbols
 
     @property
     def client(self):
@@ -68,13 +74,16 @@ class BinanceExchangeWrapper(IExchangeWrapper):
             client_object (Client): A binance.client Client object.
         
         Returns:
-            Returns nothing.  
+            Returns nothing.
         
         Raises:
             ValueError: If client_object is not an instance of binance.client Client object.
+
         """
+
         if not isinstance(client_object, Client):
             raise ValueError("Function argument client should be a valid binance.client Client object.")
+    
         self._client = client_object
 
     @property
@@ -104,10 +113,78 @@ class BinanceExchangeWrapper(IExchangeWrapper):
         Raises:
             NotImplementedError: This function must be override in derived classes
             ValueError: If credential_dic is not a dictionary
+            ValueError("credential_dic is not in binance credential dictionary \
+                format. missing key API_KEY or API_SECRET")
+
         """
+
         if not isinstance(credential_dic,dict):
             raise ValueError("Function argument credential_dic should be a dictionary.")
+
+        if not client_object.credential_dic.get('API_KEY', None) or not credential_dic.get('API_SECRET', None):
+            raise ValueError("credential_dic is not in binance credential dictionary \
+                format. missing key API_KEY or API_SECRET")
         self._credential = credential_dic
+
+    @property
+    def symobl_interface(self):
+        """
+        IExchangeWrapper _symobl_interface getter.
+               
+        Returns:
+            Returns SymbolInterface.
+        
+        Raises:
+            NotImplementedError: This function must be override in derived classes
+        
+        """
+
+        return self._symobl_interface
+
+    @symobl_interface.setter
+    def symobl_interface(self, symobl_interface):
+        """
+        IExchangeWrapper _symobl_interface setter.
+        
+        Args:
+            symobl_interface (SymbolInterface): a SymbolInterface
+                concrete implementation.
+        
+        Returns:
+            Returns nothing.  
+        
+        Raises:
+            NotImplementedError: This function must be override in derived classes
+            ValueError: if symbol_interface not validated.
+            ValueError: if symbol_interface not an instance of BinanceSymbols.
+        """
+
+        if not isinstance(symobl_interface, type(BinanceSymbols)):
+            raise ValueError("symbol_interface is not subclass of BinanceSymbols")
+        if not symbols_interface.is_valid():
+            raise ValueError("symbol_interface is not valid implementation of BinanceSymbols ")
+
+        self._symobl_interface = symobl_interface
+
+    def validate_symbols_inteface(symbol_interface):
+        """
+        Validates a concrete implementation of SymbolInterface
+        
+        Validates a concrete implementation of and also 
+            validates that this SymbolInterface is instance 
+            of BinanceSymbols.
+
+        Args:
+            symobl_interface (SymbolInterface): a SymbolInterface
+                concrete implementation.
+        
+        Returns:
+            Returns nothing.  
+        
+        Raises:
+            ValueError: if symbol_interface not validated.
+            ValueError: if symbol_interface not an instance of BinanceSymbols.
+        """
 
     async def get_deposit_address(self, symbol):
         """
@@ -173,7 +250,7 @@ class BinanceExchangeWrapper(IExchangeWrapper):
             ValueError: If symbol is None or empty or not in !!!symbols_enum!!!
         """
         
-        pass
+        return self.client.get_order_book(symbol=symbol)
     
     async def get_prices(self):
         """
@@ -193,12 +270,19 @@ class BinanceExchangeWrapper(IExchangeWrapper):
 
 
 async def main():  
-    api_key = "GUDngb2z8aUqkrzIXevAfD5WKlXe3BUgU3lo7FH42btd7uDpYeP5k0I295KU8JPB"
-    api_secret = "ESrDPnoicw8rfJurgaCXHoGoHLUaL5S0RtxeG3Yvl05ZRjmZhiJSjgGTZ1z4BHtA"
-    cred_dic = {'API_KEY': api_key, 'API_SECRET': api_secret}
-    beh = BinanceExchangeWrapper(cred_dic)
+    from crypto_summoner.config.config import Config
+    from crypto_summoner.exchange_factory.general_exchange_factory import GeneralExchangeFactory
+    gef = GeneralExchangeFactory()
+    
+    cred_dic = Config.get_property('BinanceExchangeWrapper')
+    gef.register_exchange('BinanceExchangeWrapper', BinanceExchangeWrapper)
+    await gef.create_exchange('BinanceExchangeWrapper', cred_dic)
+    beh = gef.get_exchange_wrapper('BinanceExchangeWrapper')   
     prices = await beh.get_prices()
     print(prices)
+    ethbtc = beh.symobl_interface.get_exchange_symbol_by_standard_name("ETHBTC")
+    order_ethbtc = await beh.get_price_by_symbol(ethbtc)
+    print(order_ethbtc)
 
 if __name__ == "__main__":
     asyncio.run(main())

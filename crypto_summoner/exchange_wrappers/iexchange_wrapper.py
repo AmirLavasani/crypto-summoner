@@ -8,6 +8,8 @@
 from abc import ABC, abstractmethod
 import asyncio
 
+from crypto_summoner.symbols_interface.symbols_interface import SymbolsInterface
+
 
 class IExchangeWrapper(ABC):
     """
@@ -41,7 +43,8 @@ class IExchangeWrapper(ABC):
             credential_dic (str): The exchange credentials dictionary.
         """
 
-        self.credential = credential_dic
+        self._credential = credential_dic
+        self._symobl_interface = SymbolsInterface
 
     @property
     @abstractmethod
@@ -74,6 +77,36 @@ class IExchangeWrapper(ABC):
         """
         
         #raise NotImplementedError(f"{self.credential.__name__} is an abstract property. Override it in subclasses.")
+
+    @property
+    @abstractmethod
+    def symobl_interface(self):
+        """
+        IExchangeWrapper _symobl_interface getter.
+               
+        Returns:
+            Returns SymbolInterface.
+        
+        Raises:
+            NotImplementedError: This function must be override in derived classes
+        """        
+
+    @symobl_interface.setter
+    @abstractmethod
+    def symobl_interface(self, symobl_interface):
+        """
+        IExchangeWrapper _symobl_interface setter.
+        
+        Args:
+            symobl_interface (SymbolInterface): a SymbolInterface
+                concrete implementation.
+        
+        Returns:
+            Returns nothing.  
+        
+        Raises:
+            NotImplementedError: This function must be override in derived classes
+        """
 
     @abstractmethod
     async def get_deposit_address(self, symbol):
