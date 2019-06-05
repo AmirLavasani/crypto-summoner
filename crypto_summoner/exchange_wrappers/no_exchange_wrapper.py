@@ -1,5 +1,5 @@
 """
-    NoExchangeWrapper is the class responsible for wrapping binance exchange SDKs.
+    NoExchangeWrapper is the class responsible for wrapping noexchange exchange SDKs.
     
     This class inherits from IExchangeWrapper abstract class.
 
@@ -8,6 +8,7 @@
 import asyncio
 from crypto_summoner.exchange_wrappers.iexchange_wrapper import IExchangeWrapper
 from crypto_summoner.exchange_wrappers.exchange_wrapper_registery import ExchangeWrapperRegistery
+from crypto_summoner.symbols_interface.noexchange_symbols import NoexchangeSymbols
 
 
 @ExchangeWrapperRegistery.register_exchange
@@ -15,7 +16,7 @@ class NoExchangeWrapper(IExchangeWrapper):
     """
     NoExchangeWrapper Class
 
-    NoExchangeWrapper is the class responsible for wrapping binance exchange SDK.
+    NoExchangeWrapper is the class responsible for wrapping noexhchange exchange SDK.
     This class inherits from IExchangeWrapper abstract class.
     Design Pattern: Adapter
 
@@ -23,7 +24,9 @@ class NoExchangeWrapper(IExchangeWrapper):
 
     Attributes:
         _credential (dic): Exchange credentials dictionary. e.g. {'API_KEY':'', 'API_SECRET': ''}
-    
+        _symobl_interface (SymbolInterface): a SymbolInterface
+            concrete implementation.
+
     Methods:       
         get_deposit_address(self, symbol): For a specified symbol, this function return the exchange deposit address.
         withdraw(self, symbol, from_addr, to_addr, amount): It send the exchange a request for withdrawal.
@@ -61,13 +64,14 @@ class NoExchangeWrapper(IExchangeWrapper):
         NoExchangeWrapper _client setter.
         
         Args:
-            client_object (Client): A binance.client Client object.
+            client_object (Client): A noexhange.client Client object.
         
         Returns:
             Returns nothing.  
         
         Raises:
-            ValueError: If client_object is not an instance of binance.client Client object.
+            ValueError: If client_object is not an instance 
+                of noexchange.client Client object.
         """
 
         self._client = client_object
@@ -105,6 +109,65 @@ class NoExchangeWrapper(IExchangeWrapper):
         if not isinstance(credential_dic,dict):
             raise ValueError("Function argument credential_dic should be a dictionary.")
         self._credential = credential_dic
+    @property
+    def symobl_interface(self):
+        """
+        IExchangeWrapper _symobl_interface getter.
+               
+        Returns:
+            Returns SymbolInterface.
+        
+        Raises:
+            NotImplementedError: This function must be override in derived classes
+        
+        """
+
+        return self._symobl_interface
+
+    @symobl_interface.setter
+    def symobl_interface(self, symobl_interface):
+        """
+        IExchangeWrapper _symobl_interface setter.
+        
+        Args:
+            symobl_interface (SymbolInterface): a SymbolInterface
+                concrete implementation.
+        
+        Returns:
+            Returns nothing.  
+        
+        Raises:
+            NotImplementedError: This function must be override in derived classes
+            ValueError: if symbol_interface not validated.
+            ValueError: if symbol_interface not an instance of NoexchangeSymbols.
+        """
+
+        if not isinstance(symobl_interface, type(NoexchangeSymbols)):
+            raise ValueError("symbol_interface is not subclass of NoexchangeSymbols")
+        if not symbols_interface.is_valid():
+            raise ValueError("symbol_interface is not valid implementation of NoexchangeSymbols ")
+
+        self._symobl_interface = symobl_interface
+
+    def validate_symbols_inteface(symbol_interface):
+        """
+        Validates a concrete implementation of SymbolInterface
+        
+        Validates a concrete implementation of and also 
+            validates that this SymbolInterface is instance 
+            of NoexchangeSymbols.
+
+        Args:
+            symobl_interface (SymbolInterface): a SymbolInterface
+                concrete implementation.
+        
+        Returns:
+            Returns nothing.  
+        
+        Raises:
+            ValueError: if symbol_interface not validated.
+            ValueError: if symbol_interface not an instance of NoexchangeSymbols.
+        """
 
     async def get_deposit_address(self, symbol):
         """
