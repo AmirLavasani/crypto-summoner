@@ -1,0 +1,7 @@
+---
+- sampleExchangeWrapper:
+    API_KEY: sample_key
+    API_SECRET: sample_secret
+- NoExchangeWrapper:
+    NO_KEY: no_key    
+...
