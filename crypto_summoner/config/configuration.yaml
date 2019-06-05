@@ -2,7 +2,7 @@
 - BinanceExchangeWrapper:
     API_KEY: GUDngb2z8aUqkrzIXevAfD5WKlXe3BUgU3lo7FH42btd7uDpYeP5k0I295KU8JPB
     API_SECRET: ESrDPnoicw8rfJurgaCXHoGoHLUaL5S0RtxeG3Yvl05ZRjmZhiJSjgGTZ1z4BHtA
-- NoExchangeWrapper:
-    NO_KEY: no_key
-    NO_SECRET: no_secret
+# - NoExchangeWrapper:
+#     NO_KEY: no_key
+#     NO_SECRET: no_secret
 ...

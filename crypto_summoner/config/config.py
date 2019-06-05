@@ -63,20 +63,21 @@ class Config:
             Returns nothing.
         
         Raises:
-            EnvironmentError: This function must be override in derived classes  
+            ValueError: This function must be override in derived classes  
         """
-
+        if "CRYPTO_SUMMONER_CONFIG_FILE" not in os.environ:
+            logger.exception("CRYPTO_SUMMONER_CONFIG_FILE environment variable is not set.")
+            raise ValueError("CRYPTO_SUMMONER_CONFIG_FILE environment variable is not set.")
+        
         yaml_config_file = os.getenv("CRYPTO_SUMMONER_CONFIG_FILE")
-        if not yaml_config_file:
-            raise EnvironmentError("CRYPTO_SUMMONER_CONFIG_FILE environment variable is not set.")
-        
         decrypted_config_data = cls.decrypt_configuration(yaml_config_file)
-        
+
         try:
             yaml_configs = yaml.safe_load(decrypted_config_data)
-        except yaml.YAMLError as exc:
+        except yaml.YAMLError:
             logger.exception("Failed to safe_load config file.")
-        
+            raise ValueError("Failed to safe_load config file.")
+
         # yaml_configs is a list of dictionaries
         for config in yaml_configs:           
             cls.CONFIGURATION.update(config)
@@ -93,17 +94,22 @@ class Config:
             Returns configuration data.
         
         Raises:
-            # TODO raise if it can not decrypt data or decryption key is not valid or file path not exists.
+            ValueError: If Configuration YAML file not exists.
+            # TODO raise if it can not decrypt data or decryption key is not valid.
         """
 
-        file = open(yaml_config_file, 'r')
+        if not os.path.exists(yaml_config_file):
+            raise ValueError("Configuration YAML file not exists.")
+
+        with open(yaml_config_file, 'r') as file:
+            config_data = file.read()
         # TODO encrypt and decrypt yaml file
-        return file.read()
+        return config_data
 
 
-def test_config():
+def main():
     Config.obtain_configuration()
     print(Config.CONFIGURATION)
 
 if __name__ == "__main__":
-    test_config()
+    main()
