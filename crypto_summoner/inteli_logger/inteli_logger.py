@@ -9,7 +9,7 @@ import logging
 
 from colorlog import ColoredFormatter
 
-from crypto_summoner.inteli_logger.inteli_logger_conf import *
+import crypto_summoner.inteli_logger.inteli_logger_conf as conf
 
 
 class InteliLogger:
@@ -17,7 +17,8 @@ class InteliLogger:
     InteliLogger Class
 
     InteliLogger is a class for customized logging.
-    Any other class can log their activity using this class without getting into any logging details.
+    Any other class can log their activity using this class
+     without getting into any logging details.
 
     ...
 
@@ -29,6 +30,7 @@ class InteliLogger:
         _add_stream_handler(cls, logger_name): Adds a stream handler to the logger with logger_name.
         _add_file_handler(cls, logger_name): Adds a file handler to the logger with logger_name.
     """
+
     _registered_loggers = {}
 
     @classmethod
@@ -52,7 +54,7 @@ class InteliLogger:
 
         if logger_name not in cls._registered_loggers.keys():
             cls._registered_loggers[logger_name] = logging.getLogger(logger_name)
-            cls._registered_loggers[logger_name].setLevel(INTELI_LOGGER_LOG_LEVEL)
+            cls._registered_loggers[logger_name].setLevel(conf.INTELI_LOGGER_LOG_LEVEL)
             cls._add_stream_handler(logger_name)
             cls._add_file_handler(logger_name)
 
@@ -73,8 +75,8 @@ class InteliLogger:
         """
 
         stream_handler = logging.StreamHandler()
-        stream_handler.setLevel(INTELI_LOGGER_STREAM_LOGGING_LEVEL)
-        stream_format = ColoredFormatter(INTELI_LOGGER_STREAM_FORMAT)
+        stream_handler.setLevel(conf.INTELI_LOGGER_STREAM_LOGGING_LEVEL)
+        stream_format = ColoredFormatter(conf.INTELI_LOGGER_STREAM_FORMAT)
         stream_handler.setFormatter(stream_format)
         logger = cls._registered_loggers[logger_name]
         logger.addHandler(stream_handler)
@@ -91,31 +93,31 @@ class InteliLogger:
             Returns nothing.
         """
 
-        file_handler = logging.FileHandler(INTELI_LOGGER_LOG_FILE)
-        file_handler.setLevel(INTELI_LOGGER_FILE_LOGGING_LEVEL)
-        stream_format = logging.Formatter(INTELI_LOGGER_FILE_FORMAT)
+        file_handler = logging.FileHandler(conf.INTELI_LOGGER_LOG_FILE)
+        file_handler.setLevel(conf.INTELI_LOGGER_FILE_LOGGING_LEVEL)
+        stream_format = logging.Formatter(conf.INTELI_LOGGER_FILE_FORMAT)
         file_handler.setFormatter(stream_format)
         logger = cls._registered_loggers[logger_name]
         logger.addHandler(file_handler)
 
 
 def test_inteli_logger():
-    log1 = InteliLogger.get_logger('log1')
-    log2 = InteliLogger.get_logger('log2')
-    log3 = InteliLogger.get_logger('log1')
+    log1 = InteliLogger.get_logger("log1")
+    log2 = InteliLogger.get_logger("log2")
+    log3 = InteliLogger.get_logger("log1")
     assert log1 is log3
 
-    log1.debug('This is a debug message')
-    log1.info('This is an info message')
-    log1.warning('This is a warning message')
-    log1.error('This is an error message')
-    log1.critical('This is a critical message')
+    log1.debug("This is a debug message")
+    log1.info("This is an info message")
+    log1.warning("This is a warning message")
+    log1.error("This is an error message")
+    log1.critical("This is a critical message")
 
-    log2.debug('This is a debug message')
-    log2.info('This is an info message')
-    log2.warning('This is a warning message')
-    log2.error('This is an error message')
-    log2.critical('This is a critical message')
+    log2.debug("This is a debug message")
+    log2.info("This is an info message")
+    log2.warning("This is a warning message")
+    log2.error("This is an error message")
+    log2.critical("This is a critical message")
 
 
 if __name__ == "__main__":
