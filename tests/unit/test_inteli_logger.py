@@ -9,3 +9,7 @@ from crypto_summoner.inteli_logger.inteli_logger import InteliLogger
 
 class TestConfig(unittest.TestCase):
     pass
+
+
+if __name__ == "__main__":
+    unittest.main()
