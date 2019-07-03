@@ -1,12 +1,12 @@
 """
     crypto_summoner package
-    
+
     A brief description of the module and its purpose:
-    This package will gather live data from crypto exchanges, 
-    and insert data into a time-series database.
+     This package will gather live data from crypto exchanges,
+     and insert data into a time-series database.
 
     A list of any classes, exception, functions, and any other objects exported by the module:
-    CryptoSummoner 
+     CryptoSummoner
 
 """
 # import sys
