@@ -1,4 +1,6 @@
 .vscode
-build/*
+build
 crypto_summoner/status
 __pycache__
+*.pyc
+*.pyo
