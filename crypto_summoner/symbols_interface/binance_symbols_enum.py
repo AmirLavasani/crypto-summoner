@@ -1,6 +1,6 @@
 """
     An Enum Class for homogenizing the diffrenet
-    representation of binance exchange market symbols.
+     representation of binance exchange market symbols.
 """
 
 from enum import unique
@@ -13,13 +13,13 @@ class BinanceSymbolsEnum(SymbolsEnum):
     BinanceSymbolsEnum Class
 
     BinanceSymbolsEnum is an Enum Class for homogenizing the diffrenet
-    representation of binance exchange market symbols.
+     representation of binance exchange market symbols.
 
     ...
 
     It inherits SymbolsEnum class.
     Each SymbolInterface should have a valid concrete SymbolsEnums
-    for the exchange symbols representation.
+     for the exchange symbols representation.
 
     """
 
@@ -33,6 +33,7 @@ class BinanceSymbolsEnum(SymbolsEnum):
 def test_binance_symbols_enum():
     print(BinanceSymbolsEnum.ETHBTC.value)
     print(BinanceSymbolsEnum.validate())
+
 
 if __name__ == "__main__":
     test_binance_symbols_enum()

@@ -3,7 +3,7 @@
     representation of market symbols in exchanges.
 """
 
-from enum import Enum, unique, EnumMeta
+from enum import Enum, unique
 
 from crypto_summoner.inteli_logger.inteli_logger import InteliLogger
 logger = InteliLogger.get_logger('SymbolsEnum')
@@ -66,7 +66,7 @@ class SymbolsEnum(Enum):
 
 
 def test_symbols_enum_validation():
-    
+
     @unique
     class TestSymbols(SymbolsEnum):
         ETHBTC = 'ETHBTC'
@@ -74,7 +74,8 @@ def test_symbols_enum_validation():
         BNBBTC = 'BNBBTC'
         NEOBTC = 'NEOBTC'
         BCCBTC = 'BCCBTC'
-    print(BinanceSymbolsEnum.validate())
+
+    print(TestSymbols.validate())
 
 
 if __name__ == "__main__":

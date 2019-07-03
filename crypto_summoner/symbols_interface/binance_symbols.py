@@ -124,5 +124,6 @@ def test_binance_symbols():
     print(BinanceSymbols.get_exchange_symbol_by_standard_name('ETHBTC'))
     print(BinanceSymbols.get_standard_symbol_by_exchange_name('ETHBTC'))
 
+
 if __name__ == "__main__":
     test_binance_symbols()

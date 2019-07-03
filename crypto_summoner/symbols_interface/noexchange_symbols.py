@@ -1,6 +1,6 @@
 """
     An concret implementation of SymbolsInterface abstract enum class.
-    representation of noexchanges market symbols.
+     representation of noexchanges market symbols.
 """
 
 from crypto_summoner.symbols_interface.symbols_interface import SymbolsInterface
@@ -13,11 +13,11 @@ class NoexchangeSymbols(SymbolsInterface):
     NoexchangeSymbols Class
 
     NoexchangeSymbols is an concrete implementation of
-    SymbolsInterface class.
+     SymbolsInterface class.
 
     It will for provide development testing
-    for features which does not depend on the 
-    exchange containing a valid exchange client.
+     for features which does not depend on the
+     exchange containing a valid exchange client.
 
     ...
 
@@ -94,7 +94,7 @@ class NoexchangeSymbols(SymbolsInterface):
 
         Returns:
             Returns standard symbol name (str) if it exist
-            in cls.symbols_enum, None otherwise.
+             in cls.symbols_enum, None otherwise.
         """
 
         symbol_enum = cls.get_symbols_enum().__members__.get(standard_symbol_name, None)
@@ -112,7 +112,7 @@ class NoexchangeSymbols(SymbolsInterface):
 
         Returns:
             Returns standard symbol name (str) if it exist
-            in cls.symbols_enum, None otherwise.
+             in cls.symbols_enum, None otherwise.
         """
 
         return cls.get_symbols_enum_invert_dictionary().get(exchange_symbol_name, None)
@@ -125,6 +125,7 @@ def test_noexchange_symbols():
         print(enum.value)
     print(NoexchangeSymbols.get_exchange_symbol_by_standard_name('ETHBTC'))
     print(NoexchangeSymbols.get_standard_symbol_by_exchange_name('ETHBTC'))
+
 
 if __name__ == "__main__":
     test_noexchange_symbols()
