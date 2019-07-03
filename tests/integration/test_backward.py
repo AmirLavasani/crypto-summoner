@@ -3,6 +3,7 @@
 """
 
 import os
+import sys
 import unittest
 
 from crypto_summoner.inteli_logger.inteli_logger import InteliLogger
@@ -74,6 +75,18 @@ class TestBackward(unittest.TestCase):
         """
 
         os.system("python crypto_summoner/exchange_factory/general_exchange_factory.py")
+
+    @classmethod
+    def tearDownClass(cls):
+        logger.info(sys.exc_info())
+        status = ""
+        exc_type, value, traceback = sys.exc_info()
+        if exc_type or value or traceback:
+            status = "Package build failed!"
+        else:
+            status = "Package build successfull."
+        with open(os.path.join("crypto_summoner", "status"), "w") as w:
+            w.write(status)
 
 
 if __name__ == "__main__":
