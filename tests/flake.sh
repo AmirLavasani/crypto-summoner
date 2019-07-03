@@ -1,1 +1,0 @@
-flake8 crypto_summoner/symbols_interface/
