@@ -23,7 +23,9 @@ setup(
             'crypto_summoner.exchange_factory',
             'crypto_summoner.config',
             'crypto_summoner.symbols_interface',
-            'crypto_summoner.summoner'],
+            'crypto_summoner.crypto_data_summoner',
+            'crypto_summoner.crypto_data_proxy',
+            'crypto_summoner.crypto_data_preserver'],
     #ext_modules=extensions,
     classifiers=classifiers_list,
     scripts=['bin/crypto_summond']
