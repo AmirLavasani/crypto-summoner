@@ -23,6 +23,11 @@ class NoExchangeSymbolsEnum(SymbolsEnum):
 
     """
 
+    ETHBTC = 'ETHBTC'
+    LTCBTC = 'LTCBTC'
+    BNBBTC = 'BNBBTC'
+    NEOBTC = 'NEOBTC'
+    BCCBTC = 'BCCBTC'
 
 def test_noexchange_symbols_enum():
     print(NoExchangeSymbolsEnum.ETHBTC.value)
