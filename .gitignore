@@ -4,3 +4,4 @@ crypto_summoner/status
 __pycache__
 *.pyc
 *.pyo
+dev_tests
