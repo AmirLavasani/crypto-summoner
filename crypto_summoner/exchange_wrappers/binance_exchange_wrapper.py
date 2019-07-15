@@ -294,7 +294,13 @@ class BinanceExchangeWrapper(IExchangeWrapper):
 
         """
 
-        return self.client.get_all_tickers()
+        prices = self.client.get_all_tickers()
+        symbols = self.symobl_interface.get_symbols_enum_invert_dictionary()
+        filtered_prices = []
+        for price in prices:
+            if price['symbol'] in symbols.keys():
+                filtered_prices.append(price)
+        return filtered_prices
 
 
 async def main():
