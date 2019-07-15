@@ -272,7 +272,13 @@ class NoExchangeWrapper(IExchangeWrapper):
             NotImplementedError: This function must be override in derived classes
         """
 
-        return self.client.get_all_tickers()
+        return [
+            {'symbol': 'ETHBTC', 'price': '0.00486530'},
+            {'symbol': 'LTCBTC', 'price': '0.00010635'},
+            {'symbol': 'BNBBTC', 'price': '0.00000028'},
+            {'symbol': 'NEOBTC', 'price': '0.00348120'},
+            {'symbol': 'BCCBTC', 'price': '0.00338970'},
+        ]
 
 
 async def main():
