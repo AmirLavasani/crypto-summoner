@@ -202,8 +202,8 @@ async def main():
         async def connect(self):
             pass
 
-    cdp = TestICryptoDataProxy({},{})
-    logger.info(tis)
+    cdp = TestICryptoDataProxy({}, {})
+    logger.info(cdp)
 
 
 if __name__ == "__main__":

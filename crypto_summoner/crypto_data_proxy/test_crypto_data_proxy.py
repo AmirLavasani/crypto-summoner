@@ -23,9 +23,9 @@ async def main():
     cdp = TestICryptoDataPreserver({'fileName': '/tmp/crypto_data'})
     logger.info(cdp)
 
-    #logger.info()
+    # logger.info()
     proxy = TestICryptoDataProxy(tis, cdp)
-    #proxy.bind()
+    # proxy.bind()
     await proxy.connect()
 
 if __name__ == "__main__":

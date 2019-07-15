@@ -1,5 +1,4 @@
-import asyncio
-from aiofile import AIOFile, Reader, Writer
+from aiofile import AIOFile, Writer
 
 from crypto_summoner.crypto_data_preserver.icrypto_data_preserver import ICryptoDataPreserver
 

@@ -91,7 +91,7 @@ class ICryptoDataPreserver(ABC):
     async def on_data(self, data):
         """
         ICryptoDataPreserver on_data method.
-        
+
         This method is called from ICryptoDataProxy when
          new data is available.
 
@@ -99,8 +99,8 @@ class ICryptoDataPreserver(ABC):
 
 
 async def main():
-    import asyncio
-    from aiofile import AIOFile, Reader, Writer
+
+    from aiofile import AIOFile, Writer
 
     class TestICryptoDataPreserver(ICryptoDataPreserver):
         def __init__(self, preserver_configuration):
@@ -120,7 +120,7 @@ async def main():
             async with AIOFile(self.preserver_configuration['fileName'], 'w+') as afp:
                 writer = Writer(afp)
                 writer.write(f'{data}\n')
-    
+
     cdp = TestICryptoDataPreserver({'fileName': '/tmp/crypto_data'})
     logger.info(cdp)
 
