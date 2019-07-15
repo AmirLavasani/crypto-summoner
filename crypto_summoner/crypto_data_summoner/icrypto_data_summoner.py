@@ -46,7 +46,6 @@ class ICryptoDataSummoner(ABC):
         summon(self, initialized_exchange_wrappers, summoner_configuration):
          This method will execute the concrete implementation of ICryptoDataSummoner
          and request data from initialized exchange wrappers.
-         
 
     """
 
@@ -91,7 +90,7 @@ class ICryptoDataSummoner(ABC):
 
         """
 
-        return _initialized_exchange_wrappers
+        return self._initialized_exchange_wrappers
 
     @initialized_exchange_wrappers.setter
     def initialized_exchange_wrappers(self, initialized_exchange_wrappers):
@@ -113,6 +112,7 @@ class ICryptoDataSummoner(ABC):
              override in derived classes
 
         """
+
         # TODO: validate initialized_exchange_wrappers content
         self._initialized_exchange_wrappers = initialized_exchange_wrappers
 
@@ -151,7 +151,7 @@ class ICryptoDataSummoner(ABC):
         """
 
     @abstractmethod
-    async def summon(self, initialized_exchange_wrappers, summoner_configuration):
+    async def summon(self):
         """
         ICryptoDataSummoner summon method.
 
@@ -159,22 +159,8 @@ class ICryptoDataSummoner(ABC):
          implementation of ICryptoDataSummoner and request
          data from initialized exchange wrappers.
 
-        Args:
-            summoner_configuration (dic): a dictionary
-             for the summoner execution configuration.
-
-            initialized_exchange_wrappers (dic):
-             The initialized dictionary of
-             exhcange wrappers. Using this dictionary
-             the concrete implementation of ICryptoDataSummoner
-             will request for data from different exchanges.
-
         Returns:
             Returns (or yields) the summoned data.
-
-        Raises:
-            ValueError: if summoner_configuration does
-            not meet required configurations.
 
         """
 
