@@ -124,7 +124,6 @@ def test_noexchange_symbols():
     for enum in list(s):
         print(enum.value)
     print(NoexchangeSymbols.get_exchange_symbol_by_standard_name('ETHBTC'))
-    print(NoexchangeSymbols.get_standard_symbol_by_exchange_name('ETHBTC'))
 
 
 if __name__ == "__main__":
