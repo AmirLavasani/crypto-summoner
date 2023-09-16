@@ -58,7 +58,7 @@ class InfluxCryptoDataPreserver(ICryptoDataPreserver):
 
         ICryptoDataPreserver.__init__(self, preserver_configuration)
         self.influxdbClient = InfluxDBClient(
-            host="127.0.0.1", port=8086, username="root", password="root", database="cryptoData"
+            host="127.0.0.1", port=8086, username="admin", password="67J2SqMOWp", database="cryptoData"
         )
 
     @property
@@ -228,8 +228,6 @@ class InfluxCryptoDataPreserver(ICryptoDataPreserver):
                 json_template["fields"] = {}
                 json_template["fields"]["price"] = float(pair_data["price"])
                 influx_friendly.append(json_template)
-                print(influx_friendly)
-        print(influx_friendly)
         return influx_friendly
 
 

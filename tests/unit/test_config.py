@@ -10,8 +10,8 @@ from crypto_summoner.config.config import Config
 
 class TestConfig(unittest.TestCase):
 
-    CRYPTO_SUMMONER_CONFIG_FILE = "unit/fixtures/test_configuration.yaml"
-    CRYPTO_SUMMONER_CONFIG_FILE_UNVALID = "unit/fixtures/test_configuration_unvalid"
+    CRYPTO_SUMMONER_CONFIG_FILE = "fixtures/test_configuration.yaml"
+    CRYPTO_SUMMONER_CONFIG_FILE_UNVALID = "fixtures/test_configuration_unvalid"
 
     def setUp(self):
         pass
@@ -19,12 +19,11 @@ class TestConfig(unittest.TestCase):
     def test_decrypt_configuration(self):
         config_file_path = self.CRYPTO_SUMMONER_CONFIG_FILE
         result = Config.decrypt_configuration(config_file_path)
-        expected = "---\n- sampleExchangeWrapper:\n    API_KEY: sample_key\n\
-                API_SECRET: sample_secret\n- NoExchangeWrapper:\n    NO_KEY: no_key    \n..."
+        expected = "---\n- sampleExchangeWrapper:\n    API_KEY: sample_key\n    API_SECRET: sample_secret\n- NoExchangeWrapper:\n    NO_KEY: no_key    \n..."
         self.assertEqual(result, expected)
 
     def test_decrypt_configuration_no_existing_config_file(self):
-        config_file_path = "unit/fixtures/not_existed_configuration.yaml"
+        config_file_path = "fixtures/not_existed_configuration.yaml"
         with self.assertRaises(ValueError):
             Config.decrypt_configuration(config_file_path)
 

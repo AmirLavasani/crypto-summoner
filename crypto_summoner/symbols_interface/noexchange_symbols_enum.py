@@ -23,11 +23,31 @@ class NoExchangeSymbolsEnum(SymbolsEnum):
 
     """
 
-    ETHBTC = 'ETHBTC'
-    LTCBTC = 'LTCBTC'
-    BNBBTC = 'BNBBTC'
-    NEOBTC = 'NEOBTC'
-    BCCBTC = 'BCCBTC'
+    BTCUSDT = "BTCUSDT"
+    ETHUSDT = "ETHUSDT"
+    LTCUSDT = "LTCUSDT"
+    XRPUSDT = "XRPUSDT"
+    EOSUSDT = "EOSUSDT"
+    BCHABCUSDT = "BCHABCUSDT"
+    BCHSVUSDT = "BCHSVUSDT"
+    XLMUSDT = "XLMUSDT"
+    BCHUSDT = "BCHUSDT"
+    TRXUSDT = "TRXUSDT"
+    BSVUSDT = "BSVUSDT"
+    DASHUSDT = "DASHUSDT"
+    NEOUSDT = "NEOUSDT"
+    USDCUSDT = "USDCUSDT"
+    ETHBTC = "ETHBTC"
+    LTCBTC = "LTCBTC"
+    NEOBTC = "NEOBTC"
+    ZECBTC = "ZECBTC"
+    BCHBTC = "BCHBTC"
+    EOSBTC = "EOSBTC"
+    XLMBTC = "XLMBTC"
+    LTCETH = "LTCETH"
+    ZECETH = "ZECETH"
+    EOSETH = "EOSETH"
+    XLMETH = "XLMETH"
 
 def test_noexchange_symbols_enum():
     print(NoExchangeSymbolsEnum.ETHBTC.value)

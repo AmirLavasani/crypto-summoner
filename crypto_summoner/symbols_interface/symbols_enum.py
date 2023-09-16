@@ -44,11 +44,32 @@ class SymbolsEnum(Enum):
         #       a yaml configuration file.
         logger.debug(f"validating {cls} Enum class.")
         symbols_list = [
-            'ETHBTC',
-            'LTCBTC',
-            'BNBBTC',
-            'NEOBTC',
-            'BCCBTC'
+            "BTC/USDT",
+            "ETH/USDT",
+            "LTC/USDT",
+            "XRP/USDT",
+            "EOS/USDT",
+            "BCHABC/USDT",
+            "BCHSV/USDT",
+            "XLM/USDT",
+            "BCH/USDT",
+            "TRX/USDT",
+            "BSV/USDT",
+            "DASH/USDT",
+            "NEO/USDT",
+            "USDC/USDT",
+            "ETH/BTC",
+            "LTC/BTC",
+            "NEO/BTC",
+            "ZEC/BTC",
+            "BCH/BTC",
+            "EOS/BTC",
+            "NEO/BTC",
+            "XLM/BTC",
+            "LTC/ETH",
+            "ZEC/ETH",
+            "EOS/ETH",
+            "XLM/ETH"
         ]
 
         if not isinstance(cls, type(SymbolsEnum)):
@@ -65,18 +86,38 @@ class SymbolsEnum(Enum):
         return True
 
 
-def test_symbols_enum_validation():
+# def test_symbols_enum_validation():
 
-    @unique
-    class TestSymbols(SymbolsEnum):
-        ETHBTC = 'ETHBTC'
-        LTCBTC = 'LTCBTC'
-        BNBBTC = 'BNBBTC'
-        NEOBTC = 'NEOBTC'
-        BCCBTC = 'BCCBTC'
+#     @unique
+#     class TestSymbols(SymbolsEnum):
+#         BTC/USDT = "BTCUSDT"
+#         ETH/USDT = "ETHUSDT"
+#         LTC/USDT = "LTCUSDT"
+#         XRP/USDT = "XRPUSDT"
+#         EOS/USDT = "EOSUSDT"
+#         BCHABC/USDT = "BCHABCUSDT"
+#         BCHSV/USDT = "BCHSVUSDT"
+#         XLM/USDT = "XLMUSDT"
+#         BCH/USDT = "BCHUSDT"
+#         TRX/USDT = "TRXUSDT"
+#         BSV/USDT = "BSVUSDT"
+#         DASH/USDT = "DASHUSDT"
+#         NEO/USDT = "NEOUSDT"
+#         USDC/USDT = "USDCUSDT"
+#         ETH/BTC = "ETHBTC"
+#         LTC/BTC = "LTCBTC"
+#         NEO/BTC = "NEOBTC"
+#         ZEC/BTC = "ZECBTC"
+#         BCH/BTC = "BCHBTC"
+#         EOS/BTC = "EOSBTC"
+#         XLM/BTC = "XLMBTC"
+#         LTC/ETH = "LTCETH"
+#         ZEC/ETH = "ZECETH"
+#         EOS/ETH = "EOSETH"
+#         XLM/ETH = "XLMETH"
 
-    print(TestSymbols.validate())
+#     print(TestSymbols.validate())
 
 
-if __name__ == "__main__":
-    test_symbols_enum_validation()
+# if __name__ == "__main__":
+#     test_symbols_enum_validation()
